@@ -31,19 +31,6 @@ jobs:
             files=$(git diff --name-only ${{ github.event.before }} HEAD)
             echo "Modified files: $files"  # Log the files variable
 
-            files2=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-            echo "Modified files attempt 2: $files2"  # Log the files variable
-
-            files3=$(git diff --name-only ${{ github.event.base_ref }} ${{ github.sha }})
-            echo "Modified files attempt 3: $files3"  # Log the files variable
-
-            files4=$(git diff --name-only ${{ github.event.base_ref }} HEAD)
-            echo "Modified files attempt 4: $files4"  # Log the files variable
-
-            echo "github.sha: ${{ github.sha }}"
-            echo "github.event.before: ${{ github.event.before }}"                        
-            echo "github.event.base_ref: ${{ github.event.base_ref }}"
-
             echo "$files" | python compute_categories_for_automatic_endpoint_updates.py
             categories="$(echo "$files" | python compute_categories_for_automatic_endpoint_updates.py)"
           fi
@@ -55,4 +42,15 @@ jobs:
             echo "Using categories: "$categories""
             echo "categories="$categories"" >> $GITHUB_OUTPUT
           fi
+
+          echo hey: "${{ github.ref }}"
+          echo buddy: "${{ github.ref_name }}"
+
+          # Determine BRANCH_NAME based on event type
+          if [[ "${{ github.event_name }}" == "push" ]]; then
+            BRANCH_NAME=${{ github.ref_name }}
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            BRANCH_NAME=${{ github.ref_name }}
+          fi
+          echo Branch name: "${BRANCH_NAME}"
           
