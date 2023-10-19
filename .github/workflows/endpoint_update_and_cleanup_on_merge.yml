@@ -41,6 +41,7 @@ jobs:
             echo "Modified files attempt 4: $files4"  # Log the files variable
 
             echo "github.sha: ${{ github.sha }}"
+            echo "github.event.before: ${{ github.event.before }}"                        
             echo "github.event.base_ref: ${{ github.event.base_ref }}"
 
             echo "$files" | python compute_categories_for_automatic_endpoint_updates.py
@@ -54,3 +55,4 @@ jobs:
             echo "Using categories: "$categories""
             echo "categories="$categories"" >> $GITHUB_OUTPUT
           fi
+          
