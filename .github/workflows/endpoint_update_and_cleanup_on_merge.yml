@@ -52,12 +52,12 @@ jobs:
             # so we have to do some gymnastics. There is probably a better way to do this.
 
             COMMIT_HASH_OF_BRANCH_TIP=$(git log --merges -n 1 --pretty=format:"%P" | cut -d ' ' -f 2)
-            echo Commit hash of the tip of the branch being merged into main: "$COMMIT_HASH_OF_BRANCH_PARENT"
+            echo Commit hash of the tip of the branch being merged into main: "$COMMIT_HASH_OF_BRANCH_TIP"
             
             # Get the name of all branches containing the tip, e.g. remotes/origin/main and remotes/origin/some-branch
             # This should (I think) always be exactly two branches assuming we're not doing an octopus merge,
             # specifically the two branches will be main and whatever the other branch was
-            BRANCHES_CONTAINING_TIP=$(git branch -a --contains $COMMIT_HASH_OF_BRANCH_PARENT)
+            BRANCHES_CONTAINING_TIP=$(git branch -a --contains $COMMIT_HASH_OF_BRANCH_TIP)
             echo Branches that contain tip: "$BRANCHES_CONTAINING_TIP"
             
             # Extract the branch name, excluding 'main', yes I had GPT write the awk for me
