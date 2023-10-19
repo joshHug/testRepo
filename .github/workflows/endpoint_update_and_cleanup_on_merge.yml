@@ -53,7 +53,7 @@ jobs:
             echo Output of the pure git log command: "$(git log --merges -n 1 --pretty=format:"%P")"
 
             BRANCH_NAME=$(git branch --contains $COMMIT_HASH_OF_BRANCH_PARENT | grep -v '^\* main$')
-            echo Output of git branch contains: "$(git branch --contains $COMMIT_HASH_OF_BRANCH_PARENT"
+            echo Output of git branch contains: "$(git branch --contains $COMMIT_HASH_OF_BRANCH_PARENT)"
           elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             BRANCH_NAME=${{ github.ref_name }}
           fi
