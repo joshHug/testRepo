@@ -61,7 +61,7 @@ jobs:
             echo Branches that contain tip: "$BRANCHES_CONTAINING_TIP"
             
             # Extract the branch name, excluding 'main', yes I had GPT write the awk for me
-            BRANCH_NAME=$(echo "$BRANCHES_CONTAINING_COMMIT" | grep -v "main" | awk -F'/' '{print $NF}')
+            BRANCH_NAME=$(echo "$BRANCHES_CONTAINING_TIP" | grep -v "main" | awk -F'/' '{print $NF}')
           elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             BRANCH_NAME=${{ github.ref_name }}
           fi
