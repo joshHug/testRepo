@@ -49,8 +49,10 @@ jobs:
           # Determine BRANCH_NAME based on event type
           if [[ "${{ github.event_name }}" == "push" ]]; then
             COMMIT_HASH_OF_BRANCH_PARENT=$(git log --merges -n 1 --pretty=format:"%P" | cut -d ' ' -f 2)
+            echo commit has of branch parent: "$COMMIT_HASH_OF_BRANCH_PARENT"
             # get the name of all branches containing the commit, e.g. remotes/origin/main and remotes/origin/some-branch
             BRANCHES_CONTAINING_COMMIT=$(git branch -a --contains $COMMIT_HASH_OF_BRANCH_PARENT)
+            echo commit has of branch parent: "$BRANCHES_CONTAINING_COMMIT"
             # Extract the source branch, excluding branches with the name 'main'
             BRANCH_NAME=$(echo "$BRANCHES_CONTAINING_COMMIT" | grep -v "main" | awk -F'/' '{print $NF}')
 
