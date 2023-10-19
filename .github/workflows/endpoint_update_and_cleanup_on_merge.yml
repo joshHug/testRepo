@@ -48,8 +48,8 @@ jobs:
 
           # Determine BRANCH_NAME based on event type
           if [[ "${{ github.event_name }}" == "push" ]]; then
-            COMMIT_HASH=$(git log --merges -n 1 --pretty=format:"%P" | cut -d ' ' -f 2)
-            BRANCH_NAME=$(git branch -a --contains $COMMIT_HASH | grep remotes | sed 's/.*\///' | sed 's/\^.*//')
+            COMMIT_HASH_OF_BRANCH_PARENT=$(git log --merges -n 1 --pretty=format:"%P" | cut -d ' ' -f 2)
+            BRANCH_NAME=$(git branch --contains $COMMIT_HASH_OF_BRANCH_PARENT | grep -v '^\* main$)'
           elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
             BRANCH_NAME=${{ github.ref_name }}
           fi
