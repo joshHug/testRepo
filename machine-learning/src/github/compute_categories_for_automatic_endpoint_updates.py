@@ -20,6 +20,7 @@
 #    git diff --name-only main 7d587a2eb1a506e70b57292d89ae30befecfd3bb | python compute_categories_for_automatic_endpoint_updates.py
 
 import sys
+sys.path.append('./')
 available_categories = ["phone", "tv", "laptop", "headphone"]
 
 paths = {}
