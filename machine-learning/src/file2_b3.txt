@@ -1,0 +1,1 @@
+This is the content for file2_b3.txt in b3.
